@@ -63,8 +63,7 @@ test_cases: List[Tuple[str, Container, str]] = [
                 ),
             ],
         ),
-        "ef0001 01 0004 02 0001 0001 03 0001 0001 04 0001 00"
-        "00000000 0A 0C 0B",
+        "ef0001 01 0004 02 0001 0001 03 0001 0001 04 0001 00" "00000000 0A 0C 0B",
     ),
     (
         "Single code section, single container section, single data 2",
@@ -84,8 +83,7 @@ test_cases: List[Tuple[str, Container, str]] = [
                 ),
             ],
         ),
-        "ef0001 01 0004 02 0001 0001 03 0001 0001 04 0001 00"
-        "00000000 0A 0C 0B",
+        "ef0001 01 0004 02 0001 0001 03 0001 0001 04 0001 00" "00000000 0A 0C 0B",
     ),
     (
         "Single code section, multiple container section, single data",
@@ -109,8 +107,7 @@ test_cases: List[Tuple[str, Container, str]] = [
                 ),
             ],
         ),
-        "ef0001 01 0004 02 0001 0001 03 0002 0001 0001 04 0001 00"
-        "00000000 0A 0C 0B 0D",
+        "ef0001 01 0004 02 0001 0001 03 0002 0001 0001 04 0001 00" "00000000 0A 0C 0B 0D",
     ),
     (
         "Single code section, multiple container sections",
@@ -130,8 +127,7 @@ test_cases: List[Tuple[str, Container, str]] = [
                 ),
             ],
         ),
-        "ef0001 01 0004 02 0001 0001 03 0002 0002 0001 04 0000 00 00000000 00"
-        "0001 00",
+        "ef0001 01 0004 02 0001 0001 03 0002 0002 0001 04 0000 00 00000000 00" "0001 00",
     ),
     (
         "No code section",
@@ -202,8 +198,7 @@ test_cases: List[Tuple[str, Container, str]] = [
             ],
             auto_type_section=False,
         ),
-        "ef0001 01 0004 01 0004 02 0001 0001 04 0000 00"
-        "00000000 00000000 00",
+        "ef0001 01 0004 01 0004 02 0001 0001 04 0000 00" "00000000 00000000 00",
     ),
     (
         "Invalid Magic",
@@ -566,6 +561,4 @@ def test_eof_v1_assemble(container: Container, hex: str):
     Test `ethereum_test.types.code`.
     """
     assembled_container = container.assemble()
-    assert assembled_container == bytes.fromhex(
-        hex.replace(" ", "").replace("\n", "")
-    )
+    assert assembled_container == bytes.fromhex(hex.replace(" ", "").replace("\n", ""))

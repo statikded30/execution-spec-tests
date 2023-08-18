@@ -181,6 +181,7 @@ class Opcode(bytes):
 
 OpcodeCallArg = Union[int, bytes, Opcode]
 
+
 def _rjumpv_encoder(*args: int) -> bytes:
     return b"".join(
         [len(args).to_bytes(1, "big")] + [i.to_bytes(2, "big", signed=True) for i in args]
@@ -278,6 +279,7 @@ class Opcodes(Opcode, Enum):
         popped_stack_items=1,
         # variable_immediate_length=(1, 2),
     )
+    MCOPY = Opcode(0x5E, popped_stack_items=3)
     CALLF = Opcode(0xB0, data_portion_length=2)
     RETF = Opcode(0xB1)
     JUMPF = Opcode(0xB1, data_portion_length=2)

@@ -338,6 +338,7 @@ VALID: List[Container] = (
 List of all EOF V1 Containers used during execution tests.
 """
 
+
 # TODO: Refactor for pytest
 def todo_eof_functions_contract_call_succeed(_):
     """

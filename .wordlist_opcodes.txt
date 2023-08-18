@@ -33,6 +33,10 @@ callvalue
 calldataload
 calldatasize
 calldatacopy
+dataload
+dataloadn
+datasize
+datacopy
 codesize
 codecopy
 gasprice
@@ -41,6 +45,7 @@ extcodesize
 extcodecopy
 returndatasize
 returndatacopy
+returncontract
 extcodehash
 blockhash
 coinbase
@@ -55,12 +60,15 @@ mstore8
 sload
 sstore
 jump
+jumpf
 jumpi
 pc
 msize
 gas
 jumpdest
 rjump
+rjumpv
+RJUMPV
 rjumpi
 callf
 retf
@@ -113,6 +121,7 @@ dup13
 dup14
 dup15
 dup16
+dupn
 swap1
 swap2
 swap3
@@ -129,6 +138,7 @@ swap13
 swap14
 swap15
 swap16
+swapn
 log0
 log1
 log2
@@ -137,11 +147,14 @@ log4
 tload
 tstore
 create
+create2
+create3
+create4
+noop
 call
 callcode
 return
 delegatecall
-create2
 staticcall
 revert
 selfdestruct

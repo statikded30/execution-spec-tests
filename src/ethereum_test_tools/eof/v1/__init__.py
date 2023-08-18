@@ -86,18 +86,12 @@ class Section:
         size = self.custom_size
         if size is None:
             if self.data is None:
-                raise Exception(
-                    "Attempted to build header without section data"
-                )
+                raise Exception("Attempted to build header without section data")
             size = len(Bytes(self.data))
         if self.kind == SectionKind.CODE:
-            raise Exception(
-                "Need container-wide view of code sections to generate header"
-            )
+            raise Exception("Need container-wide view of code sections to generate header")
         else:
-            return self.kind.to_bytes(1, byteorder="big") + size.to_bytes(
-                2, byteorder="big"
-            )
+            return self.kind.to_bytes(1, byteorder="big") + size.to_bytes(2, byteorder="big")
 
     def with_max_stack_height(self, max_stack_height) -> "Section":
         """
@@ -224,11 +218,7 @@ class Container(Code):
 
         c = bytes([0xEF])
 
-        c += (
-            EOF_MAGIC
-            if self.custom_magic is None
-            else self.custom_magic.to_bytes(1, "big")
-        )
+        c += EOF_MAGIC if self.custom_magic is None else self.custom_magic.to_bytes(1, "big")
 
         c += (
             VERSION_NUMBER
@@ -239,10 +229,7 @@ class Container(Code):
         # Copy the sections so we can add the `type` section
         sections = self.sections.copy()
 
-        if (
-            self.auto_type_section
-            and count_sections(sections, SectionKind.TYPE) == 0
-        ):
+        if self.auto_type_section and count_sections(sections, SectionKind.TYPE) == 0:
             type_section_data: bytes = bytes()
             for s in sections:
                 if s.kind == SectionKind.CODE or s.force_type_listing:
@@ -265,12 +252,8 @@ class Container(Code):
                                 auto_code_outputs,
                             )
 
-                    type_section_data += make_type_def(
-                        code_inputs, code_outputs, max_stack_height
-                    )
-            sections = [
-                Section(kind=SectionKind.TYPE, data=type_section_data)
-            ] + sections
+                    type_section_data += make_type_def(code_inputs, code_outputs, max_stack_height)
+            sections = [Section(kind=SectionKind.TYPE, data=type_section_data)] + sections
 
         if self.auto_data_section:
             if count_sections(sections, SectionKind.DATA) > 0:
@@ -314,9 +297,7 @@ class Container(Code):
                 concurrent_kind_sections = [s]
 
         if len(concurrent_kind_sections) > 0:
-            c += create_sections_header(
-                concurrent_kind_sections[0].kind, concurrent_kind_sections
-            )
+            c += create_sections_header(concurrent_kind_sections[0].kind, concurrent_kind_sections)
 
         # Add header terminator
         if self.custom_terminator is not None:
@@ -410,9 +391,7 @@ class Initcode(Code):
         super().__init__(code=initcode.assemble(), name=self.name)
 
 
-def create_sections_header(
-    kind: SectionKind | int, sections: List[Section]
-) -> bytes:
+def create_sections_header(kind: SectionKind | int, sections: List[Section]) -> bytes:
     """
     Creates the single code header for all code sections contained in
     the list.

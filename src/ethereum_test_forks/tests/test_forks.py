@@ -5,7 +5,7 @@ Test fork utilities.
 from typing import Mapping, cast
 
 from ..base_fork import Fork
-from ..forks.forks import Berlin, Cancun, Frontier, London, Merge, Shanghai
+from ..forks.forks import Berlin, Cancun, Frontier, London, Merge, Prague, Shanghai
 from ..forks.transition import BerlinToLondonAt5, MergeToShanghaiAtTime15k
 from ..helpers import (
     forks_from,
@@ -21,8 +21,8 @@ from ..transition_base_fork import transition_fork
 
 FIRST_DEPLOYED = Frontier
 LAST_DEPLOYED = Shanghai
-LAST_DEVELOPMENT = Cancun
-DEVELOPMENT_FORKS = [Cancun]
+LAST_DEVELOPMENT = Prague
+DEVELOPMENT_FORKS = [Cancun, Prague]
 
 
 def test_transition_forks():
@@ -152,7 +152,7 @@ class PreAllocTransitionFork(PrePreAllocFork):
     pass
 
 
-def test_pre_alloc():
+def test_pre_alloc():  # noqa: D103
     assert PrePreAllocFork.pre_allocation() == {"test": "test"}
     assert PreAllocFork.pre_allocation() == {"test": "test", "test2": "test2"}
     assert PreAllocTransitionFork.pre_allocation() == {
@@ -165,9 +165,9 @@ def test_pre_alloc():
     }
 
 
-def test_precompiles():
+def test_precompiles():  # noqa: D103
     Cancun.precompiles() == list(range(11))[1:]
 
 
-def test_tx_types():
+def test_tx_types():  # noqa: D103
     Cancun.tx_types() == list(range(4))

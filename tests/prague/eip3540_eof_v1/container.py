@@ -4,19 +4,11 @@ Test EVM Object Format Version 1
 from typing import List
 
 from ethereum_test_tools.eof import LATEST_EOF_VERSION
-from ethereum_test_tools.eof.v1 import (
-    VERSION_MAX_SECTION_KIND,
-    Container,
-    Section,
-)
+from ethereum_test_tools.eof.v1 import VERSION_MAX_SECTION_KIND, Container, Section
 from ethereum_test_tools.eof.v1 import SectionKind as Kind
 from ethereum_test_tools.vm.opcode import Opcodes as Op
 
-from .constants import (
-    MAX_CODE_INPUTS,
-    MAX_CODE_OUTPUTS,
-    MAX_OPERAND_STACK_HEIGHT,
-)
+from .constants import MAX_CODE_INPUTS, MAX_CODE_OUTPUTS, MAX_OPERAND_STACK_HEIGHT
 
 VALID: List[Container] = [
     Container(
@@ -73,30 +65,22 @@ INVALID: List[Container] = [
     ),
     Container(
         name="code_section_size_incomplete_3",
-        raw_bytes=bytes(
-            [0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01]
-        ),
+        raw_bytes=bytes([0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01]),
         validity_error="IncompleteCodeHeader",
     ),
     Container(
         name="code_section_size_incomplete_4",
-        raw_bytes=bytes(
-            [0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01]
-        ),
+        raw_bytes=bytes([0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01]),
         validity_error="IncompleteCodeHeader",
     ),
     Container(
         name="code_section_size_incomplete_5",
-        raw_bytes=bytes(
-            [0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01, 0x00]
-        ),
+        raw_bytes=bytes([0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01, 0x00]),
         validity_error="IncompleteCodeHeader",
     ),
     Container(
         name="no_data_section",
-        raw_bytes=bytes(
-            [0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01, 0x00, 0x00]
-        ),
+        raw_bytes=bytes([0xEF, 0x00, 0x01, 0x01, 0x00, 0x04, 0x02, 0x00, 0x01, 0x00, 0x00]),
         validity_error="IncompleteDataHeader",
     ),
     Container(
@@ -602,9 +586,7 @@ INVALID += [
         sections=[
             Section(
                 kind=Kind.CODE,
-                data=(
-                    (Op.PUSH0 * (MAX_CODE_INPUTS + 1)) + Op.CALLF(1) + Op.STOP
-                ),
+                data=((Op.PUSH0 * (MAX_CODE_INPUTS + 1)) + Op.CALLF(1) + Op.STOP),
                 code_inputs=0,
                 code_outputs=0,
                 max_stack_height=(MAX_CODE_INPUTS + 1),

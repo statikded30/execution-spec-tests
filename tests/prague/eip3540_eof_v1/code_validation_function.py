@@ -72,10 +72,7 @@ VALID: List[Container] = [
             Section(
                 kind=Kind.CODE,
                 data=(
-                    bytes_concatenate(
-                        [Op.CALLF(i) for i in range(1, MAX_CODE_SECTIONS)]
-                    )
-                    + Op.STOP
+                    bytes_concatenate([Op.CALLF(i) for i in range(1, MAX_CODE_SECTIONS)]) + Op.STOP
                 ),
                 code_inputs=0,
                 code_outputs=0,
